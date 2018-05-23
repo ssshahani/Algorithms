@@ -27,26 +27,23 @@ void getCofactor(int A[N][N], int temp[N][N], int p, int q, int n)
                 // column end reached. row finished. go to new row.
                 if (j == n - 1)
                 {
-                    j = 0;
-                    i++;
+                    j = 0; //reset column
+                    i++; //increment row
                 }
             }
         }
     }
 }
 
-//A[N][N] - is the cofactor matrix.
-//n is the size of A which is cofactor
-
+// this function calculates determinant of each cofacor recursively
 int determinant(int A[N][N], int n)
 {
     int D = 0; // Initialize result
 
-    //  Base case : if matrix contains single element
     if (n == 1)
         return A[0][0];
 
-    int temp[N][N];
+    int temp[N][N]; // this stores the cofactor
 
     int sign = 1;
     int f = 0;
@@ -54,7 +51,7 @@ int determinant(int A[N][N], int n)
     {
         // Getting Cofactor of A[0][f]
         getCofactor(A, temp, 0, f, n);
-        D += sign * A[0][f] * determinant(temp, n - 1);
+        D += sign * A[0][f] * determinant(temp, n - 1); //Here (n-1) because we are finding det of 2*2 cofactor matrix.
 
 		//swapping signs
         sign = -sign;
@@ -87,23 +84,24 @@ void adjoint(int A[N][N], int adj[N][N]){
 		}
 	}
 }
-
+//this function checks if inverse exist, computes it and returns back in output param: inverse
 bool isInverse(int A[N][N], float inverse[N][N]){
 	int det = determinant(A,N);
-	if(det == 0){
+	if(det == 0){  // Check if matrix is inverse or not. if det=0 then inverse doe not exist. 
 		cout<<"Singular Matrix";
 		return false;
 	}
 	int adj[N][N];
 	adjoint(A,adj);
 
+	// inverse is calculated adj/det.
 	for(int i=0;i<N;i++)
 		for(int j=0;j<N;j++)
 			inverse[i][j] = adj[i][j]/float(det);
 
 	return true;
 }
-
+// template function to display different matrices. int/float matrix
 template<class T>
 void display(T arr[N][N])
 {
@@ -116,6 +114,7 @@ void display(T arr[N][N])
 }
 int main(){
 
+	// Here N is the macro defined above. Using N we are able to make a robust algo not dependent on the defined matrix size throughout all functions.
     int A[N][N] = { {1, 4, 8},
                     {2, 6, 7},
                     {0, 4, 5}};
