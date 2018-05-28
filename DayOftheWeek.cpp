@@ -32,13 +32,14 @@ void printDate(Date d){
 //Gregorian calender is more close to solar year i.e no. of days is 365.24 < 365.25
 //therefore every 400 years there 97 leap years and not 100
 bool checkLeapYear(int year){
-	bool leap = false;
-	if(year%4 == 0 && year%100 != 0)
-		leap =true;
-	else if(year%4 == 0 && year%400 == 0)
-		leap =true;
-
-	return leap;
+	if(year%400 == 0)
+		return true;
+	
+	if(year%100 == 0)
+		return false;
+	
+	if(year%4 4 == 0)
+		return true;
 }
 // Utility function to get the dat of the week
 //TODO: the function is not giving correct index for leap year Eg: 02/29/2020. It is giving Friday instead of Saturday

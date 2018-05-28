@@ -62,6 +62,7 @@ void LinkedList::deleteNode(Node** head_ref, int pos){
 	Node* next = temp->next->next;
 	temp->next = next;
 }
+//TODO: Use Memory Leak tool, although operating system frees up memory on heap after application closes
 int main(int argc,char* argv[]){
 
 	//UNUSED(argc);
